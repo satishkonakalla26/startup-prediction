@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Analysis - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+        .header-subtitle {
+            color: #667eea;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+        .back-link {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .back-link:hover {
+            background: #764ba2;
+            transform: translateX(-2px);
+        }
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .info-box p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        .chart-title {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            font-weight: 600;
+        }
+        .chart-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+        }
+        .no-data-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .no-data h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .no-data p {
+            color: #666;
+            margin: 0;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        footer p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>📈 Analytics & Visualizations</h1>
+                <div class="header-subtitle">Model performance and data analysis</div>
+            </div>
+            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <p>📌 View detailed analytics and visualizations of model performance, data distributions, and analysis metrics.</p>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">📊 Analysis Charts & Graphs</div>
+            <div class="chart-content">
+                {% if graph_data %}
+                <div>
+                    {{ graph_data|safe }}
+                </div>
+                {% else %}
+                <div class="no-data">
+                    <div class="no-data-icon">📉</div>
+                    <h3>No Analysis Data Available</h3>
+                    <p>Upload data and run analysis to generate visualizations.</p>
+                    <a href="{% url 'upload_dataset' %}" class="back-link" style="margin-top: 20px; display: inline-block;">📤 Upload Dataset</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🛡️ <strong>Analytics Dashboard</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Real-time analysis and performance metrics</p>
+    </footer>
+</body>
+</html>

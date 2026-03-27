@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Users - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+        .back-link {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .back-link:hover {
+            background: #764ba2;
+            transform: translateX(-2px);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .info-box p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+        .pending-count {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #ffc107;
+        }
+        .pending-count h3 {
+            color: #ffc107;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .pending-count p {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        tbody tr {
+            transition: background 0.2s;
+        }
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        button, .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+        .btn-accept {
+            background: #28a745;
+            color: white;
+        }
+        .btn-accept:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(40,167,69,0.3);
+        }
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-reject:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(220,53,69,0.3);
+        }
+        .empty-state {
+            background: white;
+            padding: 60px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .empty-state svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        .empty-state h3 {
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+        .empty-state p {
+            color: #999;
+            margin: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        footer p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📋 Pending Users</h1>
+            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <p>📌 Review and approve new user registrations. Accept to allow access or reject to deny registration.</p>
+        </div>
+
+        {% if pending_users %}
+        <div class="pending-count">
+            <h3>⏳ Pending Approvals</h3>
+            <p>{{ pending_users|length }}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                    <th>Industry</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in pending_users %}
+                <tr>
+                    <td>#{{ user.user_id }}</td>
+                    <td><strong>{{ user.Fullname }}</strong></td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.Phone }}</td>
+                    <td>{{ user.city }}</td>
+                    <td>{{ user.industry }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{% url 'accept' user.user_id %}" class="btn btn-accept">✓ Accept</a>
+                            <a href="{% url 'reject' user.user_id %}" class="btn btn-reject">✕ Reject</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <h3>✓ All Users Approved!</h3>
+            <p>There are no pending user approvals right now.</p>
+            <a href="{% url 'index' %}" class="back-link" style="margin-top: 20px;">← Back to Dashboard</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>🛡️ <strong>Pending Users Management</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Review user information carefully before approving</p>
+    </footer>
+</body>
+</html>

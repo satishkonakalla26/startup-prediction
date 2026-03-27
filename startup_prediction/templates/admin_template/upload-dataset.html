@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Dataset - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+        .back-link {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .back-link:hover {
+            background: #764ba2;
+            transform: translateX(-2px);
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .form-description {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #667eea;
+        }
+        .file-input-wrapper {
+            position: relative;
+        }
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 30px;
+            border: 3px dashed #667eea;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .file-input-label:hover {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
+            border-color: #764ba2;
+        }
+        .file-input-label.active {
+            background: linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%);
+            border-color: #28a745;
+        }
+        .file-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .file-text {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .file-hint {
+            color: #999;
+            font-size: 12px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        #fileName {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            color: #28a745;
+            font-weight: 600;
+        }
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+        .info-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid #667eea;
+        }
+        .info-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .info-text {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        footer p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📤 Upload Dataset</h1>
+            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-card">
+            <h2 class="form-title">Import Training Data</h2>
+            <p class="form-description">Upload a CSV file containing startup data to train or retrain machine learning models. Ensure your CSV has the required columns for startup success/failure prediction.</p>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Select CSV File</label>
+                    <div class="file-input-wrapper">
+                        <label class="file-input-label" for="fileInput">
+                            <div>
+                                <div class="file-icon">📁</div>
+                                <div class="file-text">Click to browse or drag & drop</div>
+                                <div class="file-hint">CSV format only (.csv)</div>
+                            </div>
+                        </label>
+                        <input type="file" id="fileInput" name="file" accept=".csv" required onchange="handleFileSelect()">
+                        <div id="fileName"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">📤 Upload Dataset</button>
+            </form>
+
+            <div class="info-box">
+                <div class="info-title">📋 CSV Requirements:</div>
+                <div class="info-text">• Format: CSV (Comma-Separated Values)</div>
+                <div class="info-text">• Minimum rows: 50 samples recommended</div>
+                <div class="info-text">• Required columns: company features and target outcome</div>
+                <div class="info-text">• File size: Maximum 50 MB</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🛡️ <strong>Dataset Upload</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Uploaded datasets are securely stored for model training</p>
+    </footer>
+
+    <script>
+        function handleFileSelect() {
+            const fileInput = document.getElementById('fileInput');
+            const fileName = document.getElementById('fileName');
+            const fileInputLabel = document.querySelector('.file-input-label');
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                fileName.textContent = '✓ Selected: ' + file.name;
+                fileName.style.display = 'block';
+                fileInputLabel.classList.add('active');
+            } else {
+                fileName.style.display = 'none';
+                fileInputLabel.classList.remove('active');
+            }
+        }
+
+        // Drag and drop functionality
+        const fileInputLabel = document.querySelector('.file-input-label');
+        const fileInput = document.getElementById('fileInput');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            fileInputLabel.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            fileInputLabel.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            fileInputLabel.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            fileInputLabel.classList.add('active');
+        }
+
+        function unhighlight(e) {
+            fileInputLabel.classList.remove('active');
+        }
+
+        fileInputLabel.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            handleFileSelect();
+        }
+    </script>
+</body>
+</html>

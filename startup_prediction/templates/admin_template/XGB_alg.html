@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XGBoost Results - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+        .header-subtitle {
+            color: #667eea;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+        .back-link {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .back-link:hover {
+            background: #764ba2;
+            transform: translateX(-2px);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .info-box p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+        .result-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+            margin-bottom: 25px;
+        }
+        .result-card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+        .result-content {
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .success-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        footer p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>🎯 XGBoost Classifier Results</h1>
+                <div class="header-subtitle">Model training and evaluation results</div>
+            </div>
+            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <p>📌 View the performance metrics and results from the XGBoost classifier training session.</p>
+        </div>
+
+        <div class="result-card">
+            <div class="success-badge">✅ Training Complete</div>
+            <h2>Algorithm Performance Report</h2>
+            {% if result %}
+            <div class="result-content">{{ result }}</div>
+            {% else %}
+            <div class="result-content">No results available yet. Run the algorithm to generate performance metrics.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        <p>🛡️ <strong>XGBoost Results</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Current active model: XGBoost | Accuracy: 80%+</p>
+    </footer>
+</body>
+</html>

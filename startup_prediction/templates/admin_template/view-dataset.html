@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Dataset - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+        .header-subtitle {
+            color: #667eea;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+        .back-link {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .back-link:hover {
+            background: #764ba2;
+            transform: translateX(-2px);
+        }
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px 30px;
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        .info-box p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+        .table-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .table-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .table-stats {
+            display: flex;
+            gap: 20px;
+        }
+        .stat {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+        thead {
+            background: #f9f9f9;
+            border-bottom: 2px solid #eee;
+        }
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        tbody tr {
+            transition: background 0.2s;
+        }
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .scrollable-table {
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .empty-state h3 {
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+        .empty-state p {
+            color: #999;
+            margin: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        footer p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 0;
+        }
+        ::-webkit-scrollbar {
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <h1>📊 Dataset Preview</h1>
+                <div class="header-subtitle">View uploaded training data</div>
+            </div>
+            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <p>📌 Below is a preview of your uploaded dataset. This data is used to train machine learning models for startup success prediction.</p>
+        </div>
+
+        {% if i %}
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h2>📈 Training Dataset</h2>
+                <div class="table-stats">
+                    <div class="stat">📊 Data Loaded</div>
+                </div>
+            </div>
+            <div class="scrollable-table">
+                <table>
+                    {{ t|safe }}
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="table-wrapper">
+            <div class="empty-state">
+                <h3>❌ No Dataset Available</h3>
+                <p>Upload a dataset first to preview it here.</p>
+                <a href="{% url 'upload_dataset' %}" class="back-link" style="margin-top: 20px; display: inline-block;">📤 Upload Dataset</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>🛡️ <strong>Dataset View</strong></p>
+        <p style="margin-top: 10px; font-size: 12px;">Review your data before training models</p>
+    </footer>
+</body>
+</html>
