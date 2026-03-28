@@ -2,6 +2,9 @@ from django.urls import path
 from adminapp import views
 
 urlpatterns = [
+    # Home
+    path('',                    views.home,         name='home'),
+
     # Auth
     path('admin-login/',  views.admin_login,  name='admin_login'),
     path('admin-logout/', views.admin_logout, name='admin_logout'),

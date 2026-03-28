@@ -20,6 +20,8 @@ def user_login(req):
     if req.method == "POST":
         email    = req.POST.get("email")
         password = req.POST.get("password")
+        remember_me = req.POST.get("remember")
+        
         print(email, password)
         try:
             user = User.objects.get(Email=email, Password=password)
@@ -32,13 +34,33 @@ def user_login(req):
             if user.status == "restricted":
                 messages.warning(req, 'Your account has been restricted')
                 return redirect('user_login')
+            
             req.session["user_id"] = user.user_id
             messages.success(req, 'Logged in successfully :)')
-            return redirect('dashboard')
+            
+            response = redirect('dashboard')
+            
+            # Set "Remember me" cookie for 30 days
+            if remember_me:
+                response.set_cookie('user_email', email, max_age=30*24*60*60, httponly=True)
+                response.set_cookie('user_remembered', 'true', max_age=30*24*60*60, httponly=True)
+            else:
+                # Remove cookie if unchecked
+                response.delete_cookie('user_email')
+                response.delete_cookie('user_remembered')
+            
+            return response
         except Exception:
             messages.warning(req, 'Incorrect details')
             return redirect('user_login')
-    return render(req, 'main_template/user-login.html')
+    
+    # Check if there's a remembered login
+    context = {}
+    if req.COOKIES.get('user_remembered') == 'true':
+        context['remembered_email'] = req.COOKIES.get('user_email', '')
+        context['is_remembered'] = True
+    
+    return render(req, 'main_template/user-login.html', context)
 
 
 def user_logout(request):

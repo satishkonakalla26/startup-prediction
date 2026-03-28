@@ -17,18 +17,43 @@ from sklearn.metrics import (
 # AUTH
 # ──────────────────────────────────────────────────────────────────────────────
 
+def home(req):
+    """Home page with login buttons"""
+    return render(req, 'main_template/home.html')
+
 def admin_login(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
+        remember_me = req.POST.get("remember")
+        
         if username == "admin" and password == "admin":
             req.session['admin_logged_in'] = True
             messages.success(req, 'Successfully logged in')
-            return redirect('index')
+            
+            response = redirect('index')
+            
+            # Set "Remember me" cookie for 30 days
+            if remember_me:
+                response.set_cookie('admin_username', username, max_age=30*24*60*60, httponly=True)
+                response.set_cookie('admin_remembered', 'true', max_age=30*24*60*60, httponly=True)
+            else:
+                # Remove cookie if unchecked
+                response.delete_cookie('admin_username')
+                response.delete_cookie('admin_remembered')
+            
+            return response
         else:
             messages.warning(req, 'Incorrect Details')
             return redirect('admin_login')
-    return render(req, 'main_template/admin-login.html')
+    
+    # Check if there's a remembered login
+    context = {}
+    if req.COOKIES.get('admin_remembered') == 'true':
+        context['remembered_username'] = req.COOKIES.get('admin_username', '')
+        context['is_remembered'] = True
+    
+    return render(req, 'main_template/admin-login.html', context)
 
 
 def admin_logout(request):

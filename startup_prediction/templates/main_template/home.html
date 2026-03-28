@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Startup Prediction System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .home-container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            padding: 40px;
+        }
+        .logo-section {
+            margin-bottom: 50px;
+        }
+        .logo-section h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .logo-section p {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        .description {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .description p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .login-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 40px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            min-width: 180px;
+        }
+        .btn-admin {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+        .btn-user {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+        .btn-user:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+        }
+        .btn-register {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+        .btn-register:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .features {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .feature-text {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        .messages {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            z-index: 1000;
+        }
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="home-container">
+        <div class="logo-section">
+            <h1>🚀 Startup Prediction System</h1>
+            <p>Predict startup success with machine learning</p>
+        </div>
+
+        <div class="description">
+            <p>Analyze startup data using advanced ML algorithms (Gradient Boosting, AdaBoost, Random Forest, Naive Bayes, XGBoost) to predict success rates and make data-driven decisions.</p>
+        </div>
+
+        <div class="login-buttons">
+            <a href="{% url 'admin_login' %}" class="btn btn-admin">🔐 Admin Login</a>
+            <a href="{% url 'user_login' %}" class="btn btn-user">👤 User Login</a>
+            <a href="{% url 'user_register' %}" class="btn btn-register">📝 Register</a>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-text">5 Algorithms</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div class="feature-text">Data Analysis</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✅</div>
+                <div class="feature-text">Accurate Results</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">Secure Access</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
