@@ -123,31 +123,48 @@
     <header>
         <div class="header-content">
             <div>
-                <h1>🎯 XGBoost Classifier Results</h1>
+                <h1>XGBoost Classifier Results</h1>
                 <div class="header-subtitle">Model training and evaluation results</div>
             </div>
-            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+            <a href="{% url 'index' %}" class="back-link">Back to Dashboard</a>
         </div>
     </header>
 
     <div class="container">
         <div class="info-box">
-            <p>📌 View the performance metrics and results from the XGBoost classifier training session.</p>
+            <p>View the performance metrics and results from the XGBoost classifier training session.</p>
         </div>
 
         <div class="result-card">
-            <div class="success-badge">✅ Training Complete</div>
+            <div class="success-badge">Training Complete</div>
             <h2>Algorithm Performance Report</h2>
-            {% if result %}
-            <div class="result-content">{{ result }}</div>
+            {% if data and data.xgb_accuracy %}
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px;">
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #28a745;">
+                    <p style="color: #999; font-size: 12px; margin-bottom: 10px;">Accuracy</p>
+                    <p style="color: #28a745; font-size: 28px; font-weight: bold; margin: 0;">{{ data.xgb_accuracy|floatformat:2 }}%</p>
+                </div>
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <p style="color: #999; font-size: 12px; margin-bottom: 10px;">Precision</p>
+                    <p style="color: #667eea; font-size: 28px; font-weight: bold; margin: 0;">{{ data.xgb_precision|floatformat:2 }}%</p>
+                </div>
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
+                    <p style="color: #999; font-size: 12px; margin-bottom: 10px;">Recall</p>
+                    <p style="color: #ffc107; font-size: 28px; font-weight: bold; margin: 0;">{{ data.xgb_recall|floatformat:2 }}%</p>
+                </div>
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #17a2b8;">
+                    <p style="color: #999; font-size: 12px; margin-bottom: 10px;">F1 Score</p>
+                    <p style="color: #17a2b8; font-size: 28px; font-weight: bold; margin: 0;">{{ data.xgb_f1_score|floatformat:2 }}%</p>
+                </div>
+            </div>
             {% else %}
-            <div class="result-content">No results available yet. Run the algorithm to generate performance metrics.</div>
+            <div class="result-content">No results available yet. Go to <a href="{% url 'algorithm1' %}">Algorithms page</a> and click "Run Analysis" on XGBoost button.</div>
             {% endif %}
         </div>
     </div>
 
     <footer>
-        <p>🛡️ <strong>XGBoost Results</strong></p>
+        <p><strong>XGBoost Results</strong></p>
         <p style="margin-top: 10px; font-size: 12px;">Current active model: XGBoost | Accuracy: 80%+</p>
     </footer>
 </body>

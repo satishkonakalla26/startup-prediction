@@ -178,24 +178,32 @@
     <header>
         <div class="header-content">
             <div>
-                <h1>📊 Dataset Preview</h1>
+                <h1>Dataset Preview</h1>
                 <div class="header-subtitle">View uploaded training data</div>
             </div>
-            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+            <a href="{% url 'index' %}" class="back-link">Back to Dashboard</a>
         </div>
     </header>
 
     <div class="container">
         <div class="info-box">
-            <p>📌 Below is a preview of your uploaded dataset. This data is used to train machine learning models for startup success prediction.</p>
+            <p>Below is a preview of your uploaded dataset. This data is used to train machine learning models for startup success prediction.</p>
         </div>
 
-        {% if i %}
+        {% if error %}
+        <div class="table-wrapper">
+            <div class="empty-state" style="padding: 60px 20px; background: #fee; border-left: 4px solid #dc3545;">
+                <h3 style="color: #dc3545;">Error Loading Dataset</h3>
+                <p>{{ error }}</p>
+                <a href="{% url 'upload_dataset' %}" class="back-link" style="margin-top: 20px; display: inline-block; background: #dc3545;">Upload New Dataset</a>
+            </div>
+        </div>
+        {% elif i %}
         <div class="table-wrapper">
             <div class="table-header">
-                <h2>📈 Training Dataset</h2>
+                <h2>Training Dataset</h2>
                 <div class="table-stats">
-                    <div class="stat">📊 Data Loaded</div>
+                    <div class="stat">Data Loaded</div>
                 </div>
             </div>
             <div class="scrollable-table">
@@ -207,16 +215,16 @@
         {% else %}
         <div class="table-wrapper">
             <div class="empty-state">
-                <h3>❌ No Dataset Available</h3>
+                <h3>No Dataset Available</h3>
                 <p>Upload a dataset first to preview it here.</p>
-                <a href="{% url 'upload_dataset' %}" class="back-link" style="margin-top: 20px; display: inline-block;">📤 Upload Dataset</a>
+                <a href="{% url 'upload_dataset' %}" class="back-link" style="margin-top: 20px; display: inline-block;">Upload Dataset</a>
             </div>
         </div>
         {% endif %}
     </div>
 
     <footer>
-        <p>🛡️ <strong>Dataset View</strong></p>
+        <p><strong>Dataset View</strong></p>
         <p style="margin-top: 10px; font-size: 12px;">Review your data before training models</p>
     </footer>
 </body>

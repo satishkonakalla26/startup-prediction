@@ -221,7 +221,7 @@
     <header>
         <div class="header-content">
             <div>
-                <h1>🛡️ Admin Dashboard</h1>
+                <h1>Admin Dashboard</h1>
                 <div class="header-subtitle">Startup Prediction System Control Panel</div>
             </div>
             <a href="{% url 'admin_logout' %}" class="logout-btn">Logout</a>
@@ -230,69 +230,63 @@
 
     <div class="container">
         <div class="welcome-card">
-            <h2>👋 Welcome to Admin Panel</h2>
+            <h2>Welcome to Admin Panel</h2>
             <p>Manage users, upload datasets, train machine learning models, and monitor system performance. All tools are available in the navigation menu below.</p>
         </div>
 
         <nav>
             <ul>
-                <li><a href="{% url 'pending_users' %}">📋 Pending Users</a></li>
-                <li><a href="{% url 'all_users' %}">👥 All Users</a></li>
-                <li><a href="{% url 'upload_dataset' %}">📤 Upload Dataset</a></li>
-                <li><a href="{% url 'view_dataset' %}">📊 View Dataset</a></li>
-                <li><a href="{% url 'graph_analasis' %}">📈 Analytics</a></li>
+                <li><a href="{% url 'pending_users' %}">Pending Users</a></li>
+                <li><a href="{% url 'all_users' %}">All Users</a></li>
+                <li><a href="{% url 'upload_dataset' %}">Upload Dataset</a></li>
+                <li><a href="{% url 'view_dataset' %}">View Dataset</a></li>
+                <li><a href="{% url 'graph_analasis' %}">Analytics</a></li>
             </ul>
         </nav>
 
         <div class="dashboard-grid">
             <div class="stat-card accepted">
-                <h3>✅ Accepted Users</h3>
+                <h3>Accepted Users</h3>
                 <p id="acceptedCount">0</p>
             </div>
             <div class="stat-card pending">
-                <h3>⏳ Pending Users</h3>
+                <h3>Pending Users</h3>
                 <p id="pendingCount">0</p>
             </div>
             <div class="stat-card rejected">
-                <h3>❌ Rejected Users</h3>
+                <h3>Rejected Users</h3>
                 <p id="rejectedCount">0</p>
             </div>
             <div class="stat-card">
-                <h3>📚 Total Users</h3>
+                <h3>Total Users</h3>
                 <p id="totalCount">0</p>
             </div>
         </div>
 
         <div class="content-section">
-            <div class="section-title">🎯 Quick Actions</div>
+            <div class="section-title">Quick Actions</div>
             <div class="feature-grid">
                 <div class="feature-box">
-                    <div class="feature-icon">📋</div>
                     <h4>Approve Users</h4>
                     <p>Review and approve pending user registrations</p>
                 </div>
                 <div class="feature-box">
-                    <div class="feature-icon">📤</div>
                     <h4>Upload Dataset</h4>
                     <p>Import CSV files for model training</p>
                 </div>
                 <div class="feature-box">
-                    <div class="feature-icon">🧠</div>
                     <h4>Train Models</h4>
                     <p>Run ML algorithms and get performance metrics</p>
                 </div>
                 <div class="feature-box">
-                    <div class="feature-icon">📊</div>
                     <h4>View Analytics</h4>
                     <p>Analyze model performance and visualizations</p>
                 </div>
                 <div class="feature-box">
-                    <div class="feature-icon">👥</div>
                     <h4>Manage Users</h4>
                     <p>View, update, or remove user accounts</p>
                 </div>
                 <div class="feature-box">
-                    <div class="feature-icon">⚙️</div>
                     <h4>System Settings</h4>
                     <p>Configure system preferences and security</p>
                 </div>
@@ -300,32 +294,28 @@
         </div>
 
         <div class="content-section">
-            <div class="section-title">📊 ML Models</div>
+            <div class="section-title">ML Models</div>
             <div class="feature-grid">
-                <a href="{% url 'gradient_boosting_classifier' %}" style="text-decoration: none;">
+                <a href="{% url 'algorithm1' %}" style="text-decoration: none;">
                     <div class="feature-box">
-                        <div class="feature-icon">🚀</div>
                         <h4>Gradient Boosting</h4>
                         <p>Advanced ensemble learning method</p>
                     </div>
                 </a>
-                <a href="{% url 'random_forest_classifier' %}" style="text-decoration: none;">
+                <a href="{% url 'algorithm3' %}" style="text-decoration: none;">
                     <div class="feature-box">
-                        <div class="feature-icon">🌲</div>
                         <h4>Random Forest</h4>
                         <p>Robust decision tree ensemble</p>
                     </div>
                 </a>
-                <a href="{% url 'ada_boost_classifier' %}" style="text-decoration: none;">
+                <a href="{% url 'algorithm2' %}" style="text-decoration: none;">
                     <div class="feature-box">
-                        <div class="feature-icon">⚡</div>
                         <h4>AdaBoost</h4>
                         <p>Adaptive boosting algorithm</p>
                     </div>
                 </a>
                 <a href="{% url 'XGB_alg' %}" style="text-decoration: none;">
                     <div class="feature-box">
-                        <div class="feature-icon">🎯</div>
                         <h4>XGBoost</h4>
                         <p>Extreme gradient boosting (Current: 80%+ Accuracy)</p>
                     </div>
@@ -334,18 +324,18 @@
         </div>
 
         <div class="content-section">
-            <div class="section-title">ℹ️ System Information</div>
+            <div class="section-title">System Information</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
-                    <h4 style="color: #667eea; margin-bottom: 10px;">🔧 Current Active Model</h4>
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Current Active Model</h4>
                     <p style="margin: 0; font-size: 16px; font-weight: bold;">XGBoost</p>
                 </div>
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #28a745;">
-                    <h4 style="color: #28a745; margin-bottom: 10px;">📈 Model Accuracy</h4>
+                    <h4 style="color: #28a745; margin-bottom: 10px;">Model Accuracy</h4>
                     <p style="margin: 0; font-size: 16px; font-weight: bold;">80%+</p>
                 </div>
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
-                    <h4 style="color: #ffc107; margin-bottom: 10px;">🎯 Training Features</h4>
+                    <h4 style="color: #ffc107; margin-bottom: 10px;">Training Features</h4>
                     <p style="margin: 0; font-size: 16px; font-weight: bold;">21 Parameters</p>
                 </div>
             </div>
@@ -353,7 +343,7 @@
     </div>
 
     <footer>
-        <p>🛡️ <strong>Admin Control Panel</strong></p>
+        <p><strong>Admin Control Panel</strong></p>
         <div class="divider"></div>
         <p>Secure Management System | XGBoost Powered | © 2026</p>
         <p style="margin-top: 12px; font-size: 12px;">All admin actions are logged and monitored</p>
@@ -379,46 +369,5 @@
         // Load stats on page load
         window.addEventListener('load', loadStats);
     </script>
-</body>
-</html>
-    </header>
-
-    <div class="container">
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Dashboard</a></li>
-                <li><a href="{% url 'pending_users' %}">Pending Users</a></li>
-                <li><a href="{% url 'all_users' %}">All Users</a></li>
-                <li><a href="{% url 'upload_dataset' %}">Upload Dataset</a></li>
-                <li><a href="{% url 'view_dataset' %}">View Dataset</a></li>
-                <li><a href="{% url 'algorithm1' %}">Algorithms</a></li>
-                <li><a href="{% url 'admin_logout' %}" class="logout-btn">Logout</a></li>
-            </ul>
-        </nav>
-
-        <div class="content">
-            <h2>Welcome to Admin Dashboard</h2>
-            <p>Manage users, upload datasets, and run machine learning algorithms.</p>
-            
-            <div class="dashboard-grid">
-                <div class="card">
-                    <h3>Users</h3>
-                    <p>Manage all users</p>
-                </div>
-                <div class="card">
-                    <h3>Dataset</h3>
-                    <p>Upload & View</p>
-                </div>
-                <div class="card">
-                    <h3>Algorithms</h3>
-                    <p>Run ML Models</p>
-                </div>
-                <div class="card">
-                    <h3>Analysis</h3>
-                    <p>View Results</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

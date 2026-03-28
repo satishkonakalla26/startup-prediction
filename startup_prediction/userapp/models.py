@@ -13,7 +13,6 @@ class Predict(models.Model):
     Time          = models.CharField(max_length=10, null=True, blank=True)
     Market        = models.CharField(max_length=10, null=True, blank=True)
     Relationships = models.IntegerField(null=True, blank=True)
-    relationships = models.IntegerField(null=True, blank=True)
     funding_rounds = models.IntegerField(null=True, blank=True)
     funding_total_usd = models.FloatField(null=True, blank=True)
     Funding       = models.IntegerField(null=True, blank=True)

@@ -231,40 +231,40 @@
     <header>
         <div class="header-content">
             <div>
-                <h1>👥 All Users</h1>
+                <h1>All Users</h1>
                 <div class="header-subtitle">Manage all registered users</div>
             </div>
-            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+            <a href="{% url 'index' %}" class="back-link">Back to Dashboard</a>
         </div>
     </header>
 
     <div class="container">
         <div class="info-box">
-            <p>📌 View and manage all registered users. Remove users as needed or view their account status.</p>
+            <p>View and manage all registered users. Remove users as needed or view their account status.</p>
         </div>
 
         {% if alluser %}
         <div class="users-count">
             <div class="count-item">
-                <div class="count-label">✅ Accepted</div>
+                <div class="count-label">Accepted</div>
                 <div class="count-number" id="acceptedCount">0</div>
             </div>
             <div class="count-item">
-                <div class="count-label">❌ Rejected</div>
+                <div class="count-label">Rejected</div>
                 <div class="count-number" id="rejectedCount">0</div>
             </div>
             <div class="count-item">
-                <div class="count-label">⚠️ Restricted</div>
+                <div class="count-label">Restricted</div>
                 <div class="count-number" id="restrictedCount">0</div>
             </div>
             <div class="count-item">
-                <div class="count-label">👥 Total</div>
+                <div class="count-label">Total</div>
                 <div class="count-number">{{ alluser|length }}</div>
             </div>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Search by name, email, or city..." onkeyup="filterTable()">
+            <input type="text" id="searchInput" placeholder="Search by name, email, or city..." onkeyup="filterTable()">
         </div>
 
         <table id="usersTable">
@@ -289,17 +289,17 @@
                     <td>{{ user.industry }}</td>
                     <td>
                         <span class="status-badge status-{{ user.status|lower }}">
-                            {% if user.status == "accepted" %}✅ Accepted
-                            {% elif user.status == "rejected" %}❌ Rejected
-                            {% elif user.status == "restricted" %}⚠️ Restricted
-                            {% elif user.status == "pending" %}⏳ Pending
+                            {% if user.status == "accepted" %}Accepted
+                            {% elif user.status == "rejected" %}Rejected
+                            {% elif user.status == "restricted" %}Restricted
+                            {% elif user.status == "pending" %}Pending
                             {% else %}{{ user.status }}
                             {% endif %}
                         </span>
                     </td>
                     <td>
                         <div class="action-buttons">
-                            <a href="{% url 'remove' user.user_id %}" class="btn btn-remove" onclick="return confirm('Are you sure you want to remove this user?')">🗑️ Remove</a>
+                            <a href="{% url 'remove' user.user_id %}" class="btn btn-remove" onclick="return confirm('Are you sure you want to remove this user?')">Remove</a>
                         </div>
                     </td>
                 </tr>
@@ -308,15 +308,15 @@
         </table>
         {% else %}
         <div class="empty-state">
-            <h3>📭 No Users Found</h3>
+            <h3>No Users Found</h3>
             <p>There are no registered users yet.</p>
-            <a href="{% url 'index' %}" class="back-link" style="margin-top: 20px;">← Back to Dashboard</a>
+            <a href="{% url 'index' %}" class="back-link" style="margin-top: 20px;">Back to Dashboard</a>
         </div>
         {% endif %}
     </div>
 
     <footer>
-        <p>🛡️ <strong>User Management</strong></p>
+        <p><strong>User Management</strong></p>
         <p style="margin-top: 10px; font-size: 12px;">All user actions are monitored and logged</p>
     </footer>
 

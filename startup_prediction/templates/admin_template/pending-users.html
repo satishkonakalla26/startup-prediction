@@ -187,19 +187,19 @@
 <body>
     <header>
         <div class="header-content">
-            <h1>📋 Pending Users</h1>
-            <a href="{% url 'index' %}" class="back-link">← Back to Dashboard</a>
+            <h1>Pending Users</h1>
+            <a href="{% url 'index' %}" class="back-link">Back to Dashboard</a>
         </div>
     </header>
 
     <div class="container">
         <div class="info-box">
-            <p>📌 Review and approve new user registrations. Accept to allow access or reject to deny registration.</p>
+            <p>Review and approve new user registrations. Accept to allow access or reject to deny registration.</p>
         </div>
 
         {% if pending_users %}
         <div class="pending-count">
-            <h3>⏳ Pending Approvals</h3>
+            <h3>Pending Approvals</h3>
             <p>{{ pending_users|length }}</p>
         </div>
 
@@ -226,8 +226,8 @@
                     <td>{{ user.industry }}</td>
                     <td>
                         <div class="action-buttons">
-                            <a href="{% url 'accept' user.user_id %}" class="btn btn-accept">✓ Accept</a>
-                            <a href="{% url 'reject' user.user_id %}" class="btn btn-reject">✕ Reject</a>
+                            <a href="{% url 'accept' user.user_id %}" class="btn btn-accept">Accept</a>
+                            <a href="{% url 'reject' user.user_id %}" class="btn btn-reject">Reject</a>
                         </div>
                     </td>
                 </tr>
@@ -236,15 +236,15 @@
         </table>
         {% else %}
         <div class="empty-state">
-            <h3>✓ All Users Approved!</h3>
+            <h3>All Users Approved!</h3>
             <p>There are no pending user approvals right now.</p>
-            <a href="{% url 'index' %}" class="back-link" style="margin-top: 20px;">← Back to Dashboard</a>
+            <a href="{% url 'index' %}" class="back-link" style="margin-top: 20px;">Back to Dashboard</a>
         </div>
         {% endif %}
     </div>
 
     <footer>
-        <p>🛡️ <strong>Pending Users Management</strong></p>
+        <p><strong>Pending Users Management</strong></p>
         <p style="margin-top: 10px; font-size: 12px;">Review user information carefully before approving</p>
     </footer>
 </body>

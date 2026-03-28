@@ -6,6 +6,9 @@ urlpatterns = [
     path('admin-login/',  views.admin_login,  name='admin_login'),
     path('admin-logout/', views.admin_logout, name='admin_logout'),
 
+    # API
+    path('api/stats/', views.get_stats, name='get_stats'),
+
     # Dashboard
     path('index/', views.index, name='index'),
 
